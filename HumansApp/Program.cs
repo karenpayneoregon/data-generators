@@ -11,7 +11,7 @@ internal partial class Program
 {
     static void Main(string[] args)
     {
-        //PrintHumansBornBetween1950And1980();
+        PrintHumansBornBetween1950And1980();
 
         //GetFemaleHumansOrderedByFirstName();
 
@@ -40,13 +40,15 @@ internal partial class Program
         
         var result = humans
             .GroupBy(h => h.Gender)
-            .Select(g => new
-            {
-                Gender = g.Key,
-                People = g.OrderBy(h => h.LastName).ToList()
-            })
+            .Select(g => new GenderPersonGrouped(g.Key, g.OrderBy(h => h.LastName).ToList()))
             .ToList();
 
+        var jsonGrouped = JsonSerializer.Serialize(result, Indented);
+
+        File.WriteAllText("Json\\gender_grouped.json", jsonGrouped);
+
+        // set a breakpoint on the following line to inspect the 'deserialized' variable
+        var deserialized = JsonSerializer.Deserialize<List<GenderPersonGrouped>>(jsonGrouped, Indented);
 
         foreach (var group in result)
         {
@@ -157,4 +159,12 @@ internal partial class Program
             Console.WriteLine($"{h.FirstName, -10} {h.LastName, -15}{h.SocialSecurityNumber.MaskSsn()}");
         }
     }
+
+    /// <summary>
+    /// Gets a <see cref="JsonSerializerOptions"/> instance configured to format JSON output with indentation.
+    /// </summary>
+    /// <value>
+    /// A <see cref="JsonSerializerOptions"/> object with <see cref="JsonSerializerOptions.WriteIndented"/> set to <c>true</c>.
+    /// </value>
+    public static JsonSerializerOptions Indented => new() { WriteIndented = true };
 }

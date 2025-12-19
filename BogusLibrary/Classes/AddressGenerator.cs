@@ -28,7 +28,7 @@ public static class AddressGenerator
 
         var faker = new Faker<Address>()
             .RuleFor(a => a.Id, f => f.IndexFaker + 1)
-            .RuleFor(a => a.Street, f => f.Address.StreetName())
+            .RuleFor(a => a.Street, f => f.Address.StreetAddress())
             .RuleFor(a => a.City, f => f.Address.City())
             .RuleFor(a => a.State, f => f.Address.State())
             .RuleFor(a => a.ZipCode, f => f.Address.ZipCode())
