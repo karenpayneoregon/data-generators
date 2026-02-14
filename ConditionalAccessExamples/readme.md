@@ -1,21 +1,6 @@
 ﻿# About
 
+Examples of the conditional access operators in C#.
 
-## Connection string/EF Core create data
-
-- `EntityConfiguration` is for EF Core database creation.
-  - EntitySettings.Instance.CreateNew
-- Get connection string from `appsettings.json`.
-   - AppConnections.Instance.MainConnection
-
-appsettings.json
-```json
-{
-  "ConnectionStrings": {
-    "MainConnection": "Data Source=.\\SQLEXPRESS;Initial Catalog=AppsettingsConfigurations;Integrated Security=True;Encrypt=False"
-  },
-  "EntityConfiguration": {
-    "CreateNew": true
-  }
-}
-```
+- null conditional operator (`?.`) allows you to safely access members.
+- The null-coalescing operator `??` returns the value of its left-hand operand if it's not null. Otherwise, it evaluates the right-hand operand and returns its result.
